@@ -1,116 +1,43 @@
-/*EL2208 Praktikum Pemecahan Masalah dengan C 2021/2022
-*Modul            : Overview of C Language
-*Percobaan        :3
-*Hari dan Tanggal : Kamis, 17 Februari 2022
-*Nama (NIM)       : 18320009
-*Asisten (NIM)    : 13219010
-*Nama File        : soal-01.c
-*Deskripsi        : membuatkan platform rekomendasi pilihan harga yang murah dan perjalanan yang singkat
-*/
-
 #include <stdio.h>
-#include <stdlib.h>
+
+struct persentase_mahasiswa
+    {
+        char nama [4];
+        int nim;
+        float persen;
+    };
+
+struct persentase_mahasiswa persentase[4] = {};
 
 int main()
 {
-        int i;
-    int n; /* banyaknya data */
-    int x[100]; /* harga */
-    int y[100]; /* lama perjalanan */
+    int i;
 
-    printf ("Masukkan banyaknya data = ");
-    scanf ("%d", &n);
-    printf ("Silahkan mulai pengisian data:");
-
-    for (i=0 ; i<n ; i++)
+    for (i = 0; i < 4; i++)
     {
-        printf("\n Masukkan data ke-%d (harga, lama perjalanan) = ", i+1);
-        scanf("%d, %d", &x[i], &y[i]);
+        printf ("\n Mahasiswa: \n", i+1);
+
+        printf ("Nama:");
+        scanf ("%s", &persentase[i].nama);
+
+        printf ("NIM:");
+        scanf ("%d", &persentase[i].nim);
+
+        printf ("persentase kehadiran:");
+        scanf ("%f", &persentase[i].persen);
     }
 
+    printf("\n");
 
-    int menu; /* pilih menu */
-    printf ("Pilihan Menu: \n");
-    printf ("1. Harga Termurah\n");
-    printf ("2. Perjalanan Tersingkat\n");
-    printf ("3. Tampilkan keduanya\n");
-    printf ("Pilih menu? (1/2/3) = ");
-    scanf ("%d", &menu);
+    printf ("Mahasiswa yang memiliki jumlah kehadiran kurang dari 80:");
 
-    int murah = x[0]; /* inisialisasi untuk menentukan harga paling murah */
-    int indeks_murah;
-
-    for (i=0 ; i<n ; i++)
+    for (i = 0; i < 4; i++)
     {
-        if (x[i] < murah)
+        if (persentase[i].persen < 80)
         {
-            murah = x[i];
-            indeks_murah = i;
+            printf ("\n Nama Mahasiswa: %s \n", persentase[i].nama);
+            printf ("\n NIM: %d \n", persentase[i].nim);
         }
     }
-
-    int singkat = y[0]; /* inisialisasi untuk menentukan jarak paling dekat */
-    int indeks_singkat;
-
-    for (i=0 ; i<n ; i++)
-    {
-        if (y[i] < singkat)
-        {
-            singkat = y[i];
-            indeks_singkat = i;
-        }
-    }
-
-    /* kalau harga murah ada yang sama, cari yg singkat */
-    for (i=0 ; i<n ; i++)
-    {
-        if (x[i] == murah)
-        {
-            if (y[i] < singkat)
-            {
-                singkat = y[i];
-                indeks_singkat = i;
-            }
-        }
-    }
-
-    /* kalau lama perjalanan ada yang sama, cari yg murah */
-    for (i=0 ; i<n ; i++)
-    {
-        if (y[i] == singkat)
-        {
-            if (x[i] < murah)
-            {
-                murah = x[i];
-                indeks_murah = i;
-            }
-        }
-    }
-
-    if (menu == 1)
-    {
-        printf("Berikut adalah detail pilihan harga termurah yang disarankan:\n");
-        printf("Harga = Rp %d\n", x[indeks_murah]);
-        printf("Lama perjalanan = %d Jam\n", y[indeks_murah]);
-    }
-
-    if (menu == 2)
-    {
-        printf("Berikut adalah detail pilihan perjalanan tersingkat yang disarankan:\n");
-        printf("Harga = Rp %d\n", x[indeks_singkat]);
-        printf("Lama perjalanan = %d Jam\n", y[indeks_singkat]);
-    }
-
-    if (menu == 3)
-    {
-        printf("Berikut adalah detail pilihan yang disarankan:\n");
-        printf("Harga termurah:\n");
-        printf("Harga = Rp %d\n", x[indeks_murah]);
-        printf("Lama perjalanan = %d Jam\n", y[indeks_murah]);
-        printf("Perjalanan tersingkat:\n");
-        printf("Harga = Rp %d\n", x[indeks_singkat]);
-        printf("Lama perjalanan = %d Jam\n", y[indeks_singkat]);
-    }
-
     return 0;
 }
